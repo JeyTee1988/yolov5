@@ -94,7 +94,7 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
     if RANK in {-1, 0}:
         loggers = Loggers(save_dir, weights, opt, hyp, LOGGER)  # loggers instance
         if loggers.clearml:
-            loggers.clearml.task.execute_remotely(queue='task')
+            loggers.clearml.task.execute_remotely(queue_name='task')
 
         # Register actions
         for k in methods(loggers):
