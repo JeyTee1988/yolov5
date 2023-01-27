@@ -10,7 +10,7 @@ from utils.plots import Annotator, colors
 
 try:
     import clearml
-    from clearml import Dataset, Task
+    from clearml import Dataset, Task, Logger
 
     assert hasattr(clearml, '__version__')  # verify package import not local dir
 except (ImportError, AssertionError):
@@ -93,6 +93,8 @@ class ClearmlLogger:
                 auto_connect_frameworks={'pytorch': False}
                 # We disconnect pytorch auto-detection, because we added manual model save points in the code
             )
+
+            Logger.current_logger().set_default_upload_destination('s3://clearml-results/artifacts/')
             # ClearML's hooks will already grab all general parameters
             # Only the hyperparameters coming from the yaml config file
             # will have to be added manually!
